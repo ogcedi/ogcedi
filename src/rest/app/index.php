@@ -15,7 +15,11 @@ $app = new Silex\Application();
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'   => 'pdo_mysql',
-        'path'     => __DIR__.'/app.db',
+        'host'      => 'localhost',
+        'dbname'    => 'ogcedi',
+        'user'      => 'root',
+        'password'  => '',
+        'charset'   => 'utf8', 
     ),
 ));
 
@@ -43,12 +47,35 @@ $app->get('/hello/{name}', function ($name) use ($app) {
     return 'Hello '.$app->escape($name);
 });
 
+
+//LECTURE DES BASES DE DONNES
+
+$app->get('/formations', function () use ($app) {
+
+
+    $sql = "SELECT * FROM formation";
+    $stmt = $app['db']->prepare($sql);
+    $stmt->execute();
+    $formation = $stmt->fetchAll();
+
+    $users = $app['db']->fetchAll('SELECT * FROM formation');
+    
+    //$comments = $app['db']->fetchAll($sql);
+    //$comments = utf8_converter($post);
+
+    return $app->json($users, 200);
+
+});
+
+
 $app->get('/enseignants', function () use ($app) {
 
 	$error = array('message' => 'The user was not found.');
 	
    	return $app->json($error, 404);
 });
+
+
 
 
 
