@@ -5,6 +5,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+require_once (BASE_DIR . '/util.php');
 
 $app = new Silex\Application();
 
@@ -59,11 +60,13 @@ $app->get('/formations', function () use ($app) {
     $formation = $stmt->fetchAll();
 
     $users = $app['db']->fetchAll('SELECT * FROM formation');
-    
+    $users = utf8_converter($users);
+        
+        var_dump($users);
     //$comments = $app['db']->fetchAll($sql);
     //$comments = utf8_converter($post);
 
-    return $app->json($users, 200);
+    return new Response(json_encode($users), 200); 
 
 });
 
