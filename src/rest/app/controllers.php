@@ -8,6 +8,8 @@ use src\Entities\Formation;
 require_once (BASE_DIR . '/app/Entities/Formation.php');
 
 
+
+
 $app->get('/view-formations.{format}', function() use($app){
     
     $sql = Formation::findAll();
@@ -20,9 +22,9 @@ $app->get('/view-formations.{format}', function() use($app){
     
 });
 
-$app->post('/create-comment.{format}', function(Request $request) use($app){
+$app->post('/create-formations.{format}', function(Request $request) use($app){
     
-    if (!$comment = $request->get('comment'))
+    if (!$formations = $request->get('formations'))
     {
         return new Response('Insufficient parameters', 400);
     }
@@ -38,50 +40,50 @@ $app->post('/create-comment.{format}', function(Request $request) use($app){
     
 });
 
-$app->put('update-comment/{id}.{format}', function($id) use($app){
+$app->put('update-formations/{id}.{format}', function($id) use($app){
 
-    if (!$comment = $app['request']->get('comment'))
+    if (!$formations = $app['request']->get('formations'))
     {
         return new Response('Insufficient parameters', 400);
     }
     
-    $sql = Comment::find($id);
+    $sql = Formation::find($id);
     
-    $comment = $app['db']->fetchAll($sql);
+    $formations = $app['db']->fetchAll($sql);
     
-    if(empty($comment))
+    if(empty($formations))
     {
-        return new Response('Comment not found.', 404);
+        return new Response('Formations not found.', 404);
     }
     
 
-    $content = $app['db']->quote($comment['content']);
-    $sql = Comment::getUpdateSQL($id, $content);
+    $content = $app['db']->quote($formations['content']);
+    $sql = Formations::getUpdateSQL($id, $content);
     
     
     $app['db']->exec($sql);
     
-    return new Response("Comment with ID: {$id} updated", 200);
+    return new Response("Formations with ID: {$id} updated", 200);
     
 });
 
-$app->delete('delete-comment/{id}.{format}', function($id) use($app){
+$app->delete('delete-formations/{id}.{format}', function($id) use($app){
     
-    $sql = Comment::find($id);
+    $sql = Formation::find($id);
     
-    $comment = $app['db']->fetchAll($sql);
+    $formations = $app['db']->fetchAll($sql);
     
     
-    if(empty($comment))
+    if(empty($formations))
     {
-        return new Response('Comment not found.', 404);
+        return new Response('Formations not found.', 404);
     }
     
-    $sql = Comment::getDeleteSQL($id);
+    $sql = formation::getDeleteSQL($id);
     
     $app['db']->exec($sql);
 
-    return new Response("Comment with ID: {$id} deleted", 200);
+    return new Response("Formations with ID: {$id} deleted", 200);
     
 }); 
 
