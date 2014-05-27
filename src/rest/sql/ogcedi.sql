@@ -81,6 +81,7 @@ DROP TABLE IF EXISTS `ogcedi`.`Module` ;
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Module` (
   `id` INT NOT NULL,
   `nom` VARCHAR(45) NULL,
+  `information` TEXT NULL,
   `UV_id` INT NOT NULL,
   `Departement_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -161,6 +162,7 @@ CREATE TABLE IF NOT EXISTS `ogcedi`.`Activite` (
   `id` INT NOT NULL,
   `charge` INT NULL,
   `nombre` INT NULL,
+  `information` TEXT NULL,
   `TypeActivite_id` INT NOT NULL,
   `Intervenant_id` INT NOT NULL,
   PRIMARY KEY (`id`),
