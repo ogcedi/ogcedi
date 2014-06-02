@@ -17,7 +17,7 @@ USE `ogcedi` ;
 DROP TABLE IF EXISTS `ogcedi`.`Formation` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Formation` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`Promotion` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Promotion` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `Formation_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`UV` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`UV` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `Promotion_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -67,7 +67,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`Departement` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Departement` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -79,7 +79,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`Module` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Module` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `information` TEXT NULL,
   `UV_id` INT NOT NULL,
@@ -106,7 +106,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`TypeActivite` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`TypeActivite` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -118,7 +118,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`Personne` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Personne` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `prenom` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -131,7 +131,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`Intervenant` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Intervenant` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `enseignant` TINYINT(1) NULL,
   `thesard` TINYINT(1) NULL,
   `etablissement` VARCHAR(45) NULL,
@@ -159,7 +159,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`Activite` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Activite` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `charge` INT NULL,
   `nombre` INT NULL,
   `information` TEXT NULL,
@@ -187,7 +187,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`ActiviteModule` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`ActiviteModule` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `Module_id` INT NOT NULL,
   `Activite_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -212,7 +212,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ogcedi`.`Utilisateur` ;
 
 CREATE TABLE IF NOT EXISTS `ogcedi`.`Utilisateur` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(45) NULL,
   `password` VARCHAR(45) NULL,
   `admin` TINYINT(1) NULL,
