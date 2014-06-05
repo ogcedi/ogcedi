@@ -6,7 +6,7 @@ use Silex\Application;
 use src\Entities\Formation;
 
 require_once (BASE_DIR . '/app/Entities/Formation.php');
-
+require_once (BASE_DIR . '/app/Entities/rest-personne.php');
 
 
 
