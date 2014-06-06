@@ -14,11 +14,23 @@ $app->get('/list-personne.{format}', function() use($app){
     
     $sql = Personne::findAll();
     
-    $comments = $app['db']->fetchAll($sql);
-    $comments = utf8_converter($comments);
+    $reponse = $app['db']->fetchAll($sql);
+    $reponse = utf8_converter($reponse);
 
 
-    return new Response(json_encode($comments), 200); 
+    return new Response(json_encode($reponse), 200); 
+    
+});
+
+$app->get('/get-personne/{id}.{format}', function($id) use($app){
+    
+    $sql = Personne::find($id);
+    
+    $reponse = $app['db']->fetchAll($sql);
+    $reponse = utf8_converter($reponse);
+
+
+    return new Response(json_encode($reponse), 200); 
     
 });
 
@@ -63,25 +75,24 @@ $app->put('/update-personne/{id}.{format}', function($id) use($app){
     $personne = new Personne();
     $personne->id = $id;
     $personne->nom = $personne_db[0]['nom'];
-    $personne->nom = $personne_db[0]['prenom'];
+    $personne->prenom = $personne_db[0]['prenom'];
 
     if ($nom = $app['request']->get('nom'))
     {
         $personne->nom = $nom;
     }
 
-    echo("pouet".defined($app['request']->get('nom')));
 
-     if ($prenom = $app['request']->get('prenom'))
+    if ($prenom = $app['request']->get('prenom'))
     {
         $personne->prenom = $prenom;
     }
-
+ 
 
     $sql = $personne->getUpdateSQL();
     $app['db']->exec($sql);
     
-    return new Response(json_encode(array('message' => "Formations with ID: {$id} updated")), 200);
+    return new Response(json_encode(array('message' => "Personne ID: {$id} modifiée")), 200);
     
 });
 
