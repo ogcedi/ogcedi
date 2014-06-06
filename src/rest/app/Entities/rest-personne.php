@@ -24,7 +24,7 @@ $app->get('/list-personne.{format}', function() use($app){
 
 $app->post('/create-personne.{format}', function(Request $request) use($app){
     
-    if (!$formations = $request->get('nom'))
+    if (!$personne = $request->get('nom'))
     {   
         $result = array('message' => 'parametres incorrects');
         return new Response(json_encode($result), 400);
@@ -53,54 +53,55 @@ $app->put('/update-personne/{id}.{format}', function($id) use($app){
     
     $sql = Personne::find($id);
     
-    $personne = $app['db']->fetchAll($sql);
+    $personne_db = $app['db']->fetchAll($sql);
     
-    if(empty($personne))
+    if(empty($personne_db))
     {
         return new Response(json_encode(array('message' => 'Personne non trouvé')), 404);
     }
     
     $personne = new Personne();
     $personne->id = $id;
+    $personne->nom = $personne_db[0]['nom'];
+    $personne->nom = $personne_db[0]['prenom'];
 
     if ($nom = $app['request']->get('nom'))
     {
-        echo "coucocuoccdsjfdskfsdkj";
         $personne->nom = $nom;
     }
 
-     if ($nom = $app['request']->get('prenom'))
+    echo("pouet".defined($app['request']->get('nom')));
+
+     if ($prenom = $app['request']->get('prenom'))
     {
         $personne->prenom = $prenom;
     }
 
 
     $sql = $personne->getUpdateSQL();
-    
-    var_dump($personne);
     $app['db']->exec($sql);
     
-    return new Response("Formations with ID: {$id} updated", 200);
+    return new Response(json_encode(array('message' => "Formations with ID: {$id} updated")), 200);
     
 });
 
-$app->delete('delete-formations/{id}.{format}', function($id) use($app){
+$app->delete('delete-personne/{id}.{format}', function($id) use($app){
     
-    $sql = Formation::find($id);
+    $sql = Personne::find($id);
     
-    $formations = $app['db']->fetchAll($sql);
+    $personne = $app['db']->fetchAll($sql);
     
     
-    if(empty($formations))
+    if(empty($personne))
     {
-        return new Response('Formations not found.', 404);
+        return new Response(json_encode(array('message' => 'Personne non trouvé')), 404);
     }
     
-    $sql = formation::getDeleteSQL($id);
+    $sql = Personne::getDeleteSQL($id);
     
     $app['db']->exec($sql);
 
-    return new Response("Formations with ID: {$id} deleted", 200);
+    return new Response(json_encode(array('message' => "Formations with ID: {$id} deleted")), 200);
     
 }); 
 

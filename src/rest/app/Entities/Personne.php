@@ -70,7 +70,7 @@ class Personne
     {
 
         $sql = "update personne
-                set nom = %s, prenom = %s
+                set nom = '%s', prenom = '%s'
                 where id = %d";
         
         $sql = sprintf(
