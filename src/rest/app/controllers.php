@@ -7,7 +7,7 @@ use src\Entities\Formation;
 
 require_once (BASE_DIR . '/app/Entities/Formation.php');
 require_once (BASE_DIR . '/app/Entities/rest-personne.php');
-
+require_once (BASE_DIR . '/app/Entities/rest-departement.php');
 
 
 $app->get('/view-formations.{format}', function() use($app){

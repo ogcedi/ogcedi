@@ -14,10 +14,10 @@ class Departement
      */
     public function getInsertSQL()
     {
-        $sql = "INSERT INTO formation(
+        $sql = "INSERT INTO departement(
                 nom
             ) 
-            VALUES (%s)";
+            VALUES ('%s')";
         
         $sql = sprintf(
             $sql, 
@@ -28,14 +28,14 @@ class Departement
     }
     
     /**
-     * Find a formation
+     * Find a departement
      * @param int $id
      * @return string 
      */
     public static function find($id)
     {
         $sql = "select * 
-                from formation
+                from departement
                 where id = %d";
         $sql = sprintf($sql, $id);
         
@@ -49,34 +49,38 @@ class Departement
     public static function findAll()
     {
         $sql = "select * 
-                from formation";
+                from departement";
         
         return $sql;
     }
     
     /**
-     * Update the formation based on the ID
+     * Update the departement based on the ID
      * @param string $content
      * @return string
      */
-    public static function getUpdateSQL($id, $content)
+    public function getUpdateSQL()
     {
-        $sql = "update formation
-                set content = %s
+        $sql = "update departement
+                set nom = '%s'
                 where id = %d";
-        $sql = sprintf($sql, $content, $id);
+        $sql = sprintf(
+            $sql, 
+            $this->nom, 
+            $this->id
+            );
         
         return $sql;
     }
     
     /**
-     * Delete formation based on ID
+     * Delete departement based on ID
      * @param int $id
      * @return string 
      */
     public static function getDeleteSQL($id)
     {
-        $sql = "delete from formation
+        $sql = "delete from departement
                 where id = %d";
         $sql = sprintf($sql, $id);
         
