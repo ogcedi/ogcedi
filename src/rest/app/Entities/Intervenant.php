@@ -14,7 +14,7 @@ class Intervenant
     public $thesard;
     public $etablissement;
     public $Departement_id;
-    public $Intervenant_id;
+    public $Personne_id;
     
 
     /**
@@ -24,7 +24,7 @@ class Intervenant
     public function getInsertSQL()
     {
         $sql = "INSERT INTO intervenant(
-                enseignant, thesard, etablissement, Departement_id, Intervenant_id
+                enseignant, thesard, etablissement, Departement_id, Personne_id
             ) 
             VALUES ('%s', '%s', '%s', '%s', '%s')";
         
@@ -34,7 +34,7 @@ class Intervenant
             $this->thesard,
             $this->etablissement,
             $this->Departement_id,
-            $this->Intervenant_id
+            $this->Personne_id
         );
         
         return $sql;
@@ -80,7 +80,7 @@ class Intervenant
                 thesard = '%s', 
                 etablissement = '%s', 
                 Departement_id = '%s', 
-                Intervenant_id = '%s'
+                Personne_id = '%s'
 
                 where id = %d";
         
@@ -90,7 +90,8 @@ class Intervenant
             $this->thesard,
             $this->etablissement,
             $this->Departement_id,
-            $this->Intervenant_id
+            $this->Personne_id,
+            $this->id
         );
         
         return $sql;

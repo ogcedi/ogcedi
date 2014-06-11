@@ -10,7 +10,7 @@ require_once (BASE_DIR . '/app/Entities/Personne.php');
 
 
 
-$app->get('/list-personne.{format}', function() use($app){
+$app->get('/personnes.{format}', function() use($app){
     
     $sql = Personne::findAll();
     
@@ -21,11 +21,11 @@ $app->get('/list-personne.{format}', function() use($app){
     
 });
 
-$app->get('/get-personne/{id}.{format}', function($id) use($app){
+$app->get('/personnes/{id}.{format}', function($id) use($app){
     
     $sql = Personne::find($id);
     
-    $reponse = $app['db']->fetchAll($sql);
+    $reponse = $app['db']->fetchAll($sql)[0];
     $reponse = utf8_converter($reponse);
 
 
@@ -33,7 +33,7 @@ $app->get('/get-personne/{id}.{format}', function($id) use($app){
     
 });
 
-$app->post('/create-personne.{format}', function(Request $request) use($app){
+$app->post('/personnes.{format}', function(Request $request) use($app){
     
     if (!$personne = $request->get('nom'))
     {   
@@ -55,7 +55,7 @@ $app->post('/create-personne.{format}', function(Request $request) use($app){
     
 });
 
-$app->put('/update-personne/{id}.{format}', function($id) use($app){
+$app->put('/personnes/{id}.{format}', function($id) use($app){
 
     if (!$reponse = $app['request']->get('id'))
     {
@@ -95,7 +95,7 @@ $app->put('/update-personne/{id}.{format}', function($id) use($app){
     
 });
 
-$app->delete('delete-personne/{id}.{format}', function($id) use($app){
+$app->delete('personnes/{id}.{format}', function($id) use($app){
     
     $sql = Personne::find($id);
     

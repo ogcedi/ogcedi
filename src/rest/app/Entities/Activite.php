@@ -90,7 +90,8 @@ class Activite
             $this->nombre,
             $this->information,
             $this->TypeActivite_id,
-            $this->Intervenant_id
+            $this->Intervenant_id,
+            $this->id
         );
         
         return $sql;
