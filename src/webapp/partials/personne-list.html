@@ -1,0 +1,30 @@
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <!--Sidebar content-->
+		<p> Affichage {{personnes.length + '/' + personnesCount}},  tri par "{{orderProp}}"</p>
+        <p>Search: <input ng-model="query"></p>
+		<p>Sort by: 
+		<select ng-model="orderProp">
+			<option value="nom">Nom</option>
+			<option value="prenom">Pr&eacute;nom</option>
+			<option value="id">id</option>
+		</select></p>
+		<p>R&eacute;sultats par page:
+		<select ng-model="limit" ng-change="loadPersonnes()">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="50">50</option>
+		</select></p>
+      </div>
+      <div class="col-md-10">
+        <ul class="phones">
+          <li ng-repeat="personne in personnes | filter:query | orderBy:orderProp" class="thumbnail">
+            <a href="#/personnes/{{personne.id}}">{{personne.prenom + ' ' + personne.nom}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>

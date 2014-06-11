@@ -1,0 +1,32 @@
+<button ng-click="go('');">Retour</button>
+
+Personne <span>{{personneId}}</span>
+
+<div ng-if="modif">
+	<button ng-click="save(); reload();">Sauvergarder</button><br/>
+	Nom:<input ng-model="personne.nom"><br/>
+	Prenom:<input ng-model="personne.prenom"/>
+</div>
+
+
+<div ng-if="!modif">
+	<button ng-click="edit();">Modifier</button><br/>
+	<h1>{{personne.prenom + ' ' + personne.nom}}</h1>
+</div>
+
+
+
+<!-- <p>{{personne.info}}</p>
+ 
+<ul class="specs">
+  <li>
+    <span>D&eacute;tails</span>
+    <dl>
+      <dt>Personne gentille</dt>
+      <dd>{{personne.gentil | checkmark}}</dd>
+    </dl>
+  </li>
+</ul>
+ -->
+
+
