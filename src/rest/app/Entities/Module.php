@@ -3,18 +3,17 @@
 namespace src\Entities;
 
 /**
- * Représentation métier d'un Intervenant de la base de données
+ * Représentation métier d'un Module de la base de données
  * Realise toutes les interactions SQL.
  */
-class Intervenant 
+class Module 
 {
     
     public $id;
-    public $enseignant;
-    public $thesard;
-    public $etablissement;
+    public $nom;
+    public $information;
+    public $UV_id;
     public $Departement_id;
-    public $Intervenant_id;
     
 
     /**
@@ -23,18 +22,17 @@ class Intervenant
      */
     public function getInsertSQL()
     {
-        $sql = "INSERT INTO intervenant(
-                enseignant, thesard, etablissement, Departement_id, Intervenant_id
+        $sql = "INSERT INTO module(
+                nom, information, UV_id, Departement_id
             ) 
-            VALUES ('%s', '%s', '%s', '%s', '%s')";
+            VALUES ('%s', '%s', '%s', '%s')";
         
         $sql = sprintf(
             $sql, 
-            $this->enseignant,
-            $this->thesard,
-            $this->etablissement,
-            $this->Departement_id,
-            $this->Intervenant_id
+            $this->nom,
+            $this->information,
+            $this->UV_id,
+            $this->Departement_id
         );
         
         return $sql;
@@ -48,7 +46,7 @@ class Intervenant
     public static function find($id)
     {
         $sql = "select * 
-                from intervenant
+                from module
                 where id = %d";
         $sql = sprintf($sql, $id);
         
@@ -62,48 +60,46 @@ class Intervenant
     public static function findAll()
     {
         $sql = "select * 
-                from intervenant";
+                from module";
         
         return $sql;
     }
     
     /**
-     * Update the intervenant based on the ID
+     * Update the Module based on the ID
      * @param string $content
      * @return string
      */
     public function getUpdateSQL()
     {
 
-        $sql = "update intervenant
-                set enseignant = '%s', 
-                thesard = '%s', 
-                etablissement = '%s', 
-                Departement_id = '%s', 
-                Intervenant_id = '%s'
+        $sql = "update module
+                set nom = '%s', 
+                information = '%s',
+                UV_id = '%s', 
+                Departement_id = '%s'
 
                 where id = %d";
         
         $sql = sprintf(
             $sql, 
-            $this->enseignant,
-            $this->thesard,
-            $this->etablissement,
-            $this->Departement_id,
-            $this->Intervenant_id
+            $this->nom,
+            $this->information,
+            $this->UV_id,
+            $this->Departement_id
         );
         
         return $sql;
     }
     
     /**
-     * Delete intervenant based on ID
+     * Delete Module based on ID
      * @param int $id
      * @return string 
      */
     public static function getDeleteSQL($id)
     {
-        $sql = "delete from intervenant
+        $sql = "delete from module
                 where id = %d";
         $sql = sprintf($sql, $id);
         

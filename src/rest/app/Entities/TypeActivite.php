@@ -2,7 +2,7 @@
 
 namespace src\Entities;
 
-class Formation 
+class TypeActivite 
 {
     
     public $id;
@@ -14,7 +14,7 @@ class Formation
      */
     public function getInsertSQL()
     {
-        $sql = "INSERT INTO formation(
+        $sql = "INSERT INTO typeactivite(
                 nom
             ) 
             VALUES (%s)";
@@ -35,7 +35,7 @@ class Formation
     public static function find($id)
     {
         $sql = "select * 
-                from formation
+                from typeactivite
                 where id = %d";
         $sql = sprintf($sql, $id);
         
@@ -49,19 +49,19 @@ class Formation
     public static function findAll()
     {
         $sql = "select * 
-                from formation";
+                from typeactivite";
         
         return $sql;
     }
     
     /**
-     * Update the formation based on the ID
+     * Update the typeactivite based on the ID
      * @param string $content
      * @return string
      */
     public static function getUpdateSQL($id, $content)
     {
-        $sql = "update formation
+        $sql = "update typeactivite
                 set content = %s
                 where id = %d";
         $sql = sprintf($sql, $content, $id);
@@ -70,13 +70,13 @@ class Formation
     }
     
     /**
-     * Delete formation based on ID
+     * Delete typeactivite based on ID
      * @param int $id
      * @return string 
      */
     public static function getDeleteSQL($id)
     {
-        $sql = "delete from formation
+        $sql = "delete from typeactivite
                 where id = %d";
         $sql = sprintf($sql, $id);
         

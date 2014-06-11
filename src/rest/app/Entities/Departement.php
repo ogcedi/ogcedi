@@ -20,7 +20,7 @@ class Departement
             VALUES ('%s')";
         
         $sql = sprintf(
-            $sql, 
+            $sql,
             $this->nom
         );
         
@@ -28,7 +28,7 @@ class Departement
     }
     
     /**
-     * Find a departement
+     * Find a row
      * @param int $id
      * @return string 
      */

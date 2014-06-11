@@ -6,15 +6,12 @@ namespace src\Entities;
  * Représentation métier d'un Intervenant de la base de données
  * Realise toutes les interactions SQL.
  */
-class Intervenant 
+class ActiviteModule 
 {
     
     public $id;
-    public $enseignant;
-    public $thesard;
-    public $etablissement;
-    public $Departement_id;
-    public $Intervenant_id;
+    public $Module_id;
+    public $Activite_id;
     
 
     /**
@@ -23,32 +20,29 @@ class Intervenant
      */
     public function getInsertSQL()
     {
-        $sql = "INSERT INTO intervenant(
-                enseignant, thesard, etablissement, Departement_id, Intervenant_id
+        $sql = "INSERT INTO activitemodule(
+                Module_id, Activite_id
             ) 
-            VALUES ('%s', '%s', '%s', '%s', '%s')";
+            VALUES ('%s', '%s')";
         
         $sql = sprintf(
-            $sql, 
-            $this->enseignant,
-            $this->thesard,
-            $this->etablissement,
-            $this->Departement_id,
-            $this->Intervenant_id
+            $sql,
+            $this->Module_id,
+            $this->Activite_id
         );
         
         return $sql;
     }
     
     /**
-     * Find a row
+     * Find a activitemodule
      * @param int $id
      * @return string 
      */
     public static function find($id)
     {
         $sql = "select * 
-                from intervenant
+                from activitemodule
                 where id = %d";
         $sql = sprintf($sql, $id);
         
@@ -62,48 +56,42 @@ class Intervenant
     public static function findAll()
     {
         $sql = "select * 
-                from intervenant";
+                from activitemodule";
         
         return $sql;
     }
     
     /**
-     * Update the intervenant based on the ID
+     * Update the activitemodule based on the ID
      * @param string $content
      * @return string
      */
     public function getUpdateSQL()
     {
 
-        $sql = "update intervenant
-                set enseignant = '%s', 
-                thesard = '%s', 
-                etablissement = '%s', 
-                Departement_id = '%s', 
-                Intervenant_id = '%s'
+        $sql = "update activitemodule
+                set Module_id = '%s', 
+                Activite_id = '%s'
 
                 where id = %d";
         
         $sql = sprintf(
-            $sql, 
-            $this->enseignant,
-            $this->thesard,
-            $this->etablissement,
-            $this->Departement_id,
-            $this->Intervenant_id
+            $sql,
+            $this->Module_id,
+            $this->Activite_id
         );
         
         return $sql;
     }
     
     /**
-     * Delete intervenant based on ID
+     * Delete activitemodule based on ID
      * @param int $id
      * @return string 
      */
     public static function getDeleteSQL($id)
     {
-        $sql = "delete from intervenant
+        $sql = "delete from activitemodule
                 where id = %d";
         $sql = sprintf($sql, $id);
         

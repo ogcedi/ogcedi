@@ -2,11 +2,17 @@
 
 namespace src\Entities;
 
-class Enseignant 
+/**
+ * Représentation métier d'une Promotion de la base de données
+ * Realise toutes les interactions SQL.
+ */
+class Promotion 
 {
     
     public $id;
     public $nom;
+    public $Formation_id;
+    
 
     /**
      * Insert query
@@ -14,28 +20,29 @@ class Enseignant
      */
     public function getInsertSQL()
     {
-        $sql = "INSERT INTO formation(
-                nom
+        $sql = "INSERT INTO promotion(
+                nom, Formation_id
             ) 
-            VALUES (%s)";
+            VALUES ('%s', '%s')";
         
         $sql = sprintf(
             $sql, 
-            $this->nom
+            $this->nom,
+            $this->Formation_id
         );
         
         return $sql;
     }
     
     /**
-     * Find a formation
+     * Find a row
      * @param int $id
      * @return string 
      */
     public static function find($id)
     {
         $sql = "select * 
-                from formation
+                from promotion
                 where id = %d";
         $sql = sprintf($sql, $id);
         
@@ -49,34 +56,41 @@ class Enseignant
     public static function findAll()
     {
         $sql = "select * 
-                from formation";
+                from promotion";
         
         return $sql;
     }
     
     /**
-     * Update the formation based on the ID
+     * Update the promotion based on the ID
      * @param string $content
      * @return string
      */
-    public static function getUpdateSQL($id, $content)
+    public function getUpdateSQL()
     {
-        $sql = "update formation
-                set content = %s
+
+        $sql = "update promotion
+                set nom = '%s', Formation_id = '%s'
                 where id = %d";
-        $sql = sprintf($sql, $content, $id);
+        
+        $sql = sprintf(
+            $sql, 
+            $this->nom,
+            $this->Formation_id,
+            $this->id
+        );
         
         return $sql;
     }
     
     /**
-     * Delete formation based on ID
+     * Delete promotion based on ID
      * @param int $id
      * @return string 
      */
     public static function getDeleteSQL($id)
     {
-        $sql = "delete from formation
+        $sql = "delete from promotion
                 where id = %d";
         $sql = sprintf($sql, $id);
         

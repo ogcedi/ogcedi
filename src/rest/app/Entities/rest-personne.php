@@ -17,7 +17,6 @@ $app->get('/list-personne.{format}', function() use($app){
     $reponse = $app['db']->fetchAll($sql);
     $reponse = utf8_converter($reponse);
 
-
     return new Response(json_encode($reponse), 200); 
     
 });
