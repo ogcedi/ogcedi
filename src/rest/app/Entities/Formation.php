@@ -17,7 +17,7 @@ class Formation
         $sql = "INSERT INTO formation(
                 nom
             ) 
-            VALUES (%s)";
+            VALUES ('%s')";
         
         $sql = sprintf(
             $sql, 
@@ -36,7 +36,7 @@ class Formation
     {
         $sql = "select * 
                 from formation
-                where id = %d";
+                where id = '%d'";
         $sql = sprintf($sql, $id);
         
         return $sql;
