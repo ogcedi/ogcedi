@@ -10,23 +10,22 @@ require_once (BASE_DIR . '/app/Entities/Departement.php');
 
 
 
-$app->get('/list-departement.{format}', function() use($app){
+$app->get('/departements.{format}', function() use($app){
     
     $sql = Departement::findAll();
     
     $reponse = $app['db']->fetchAll($sql);
     $reponse = utf8_converter($reponse);
 
-
     return new Response(json_encode($reponse), 200); 
     
 });
 
-$app->get('/get-departement/{id}.{format}', function($id) use($app){
+$app->get('/departements/{id}.{format}', function($id) use($app){
     
     $sql = Departement::find($id);
     
-    $reponse = $app['db']->fetchAll($sql);
+    $reponse = $app['db']->fetchAll($sql)[0];
     $reponse = utf8_converter($reponse);
 
 
@@ -34,7 +33,7 @@ $app->get('/get-departement/{id}.{format}', function($id) use($app){
     
 });
 
-$app->post('/create-departement.{format}', function(Request $request) use($app){
+$app->post('/departements.{format}', function(Request $request) use($app){
     
     if (!$departement = $request->get('nom'))
     {   
@@ -55,7 +54,7 @@ $app->post('/create-departement.{format}', function(Request $request) use($app){
     
 });
 
-$app->put('/update-departement/{id}.{format}', function($id) use($app){
+$app->put('/departements/{id}.{format}', function($id) use($app){
 
     if (!$reponse = $app['request']->get('id'))
     {
@@ -88,7 +87,7 @@ $app->put('/update-departement/{id}.{format}', function($id) use($app){
     
 });
 
-$app->delete('delete-departement/{id}.{format}', function($id) use($app){
+$app->delete('departements/{id}.{format}', function($id) use($app){
     
     $sql = Departement::find($id);
     

@@ -10,23 +10,22 @@ require_once (BASE_DIR . '/app/Entities/Intervenant.php');
 
 
 
-$app->get('/list-intervenant.{format}', function() use($app){
+$app->get('/intervenants.{format}', function() use($app){
     
     $sql = Intervenant::findAll();
     
     $reponse = $app['db']->fetchAll($sql);
     $reponse = utf8_converter($reponse);
 
-
     return new Response(json_encode($reponse), 200); 
     
 });
 
-$app->get('/get-intervenant/{id}.{format}', function($id) use($app){
+$app->get('/intervenants/{id}.{format}', function($id) use($app){
     
     $sql = Intervenant::find($id);
     
-    $reponse = $app['db']->fetchAll($sql);
+    $reponse = $app['db']->fetchAll($sql)[0];
     $reponse = utf8_converter($reponse);
 
 
@@ -34,7 +33,7 @@ $app->get('/get-intervenant/{id}.{format}', function($id) use($app){
     
 });
 
-$app->post('/create-intervenant.{format}', function(Request $request) use($app){
+$app->post('/intervenants.{format}', function(Request $request) use($app){
     
     if (!$intervenant = $request->get('nom'))
     {   
@@ -56,7 +55,7 @@ $app->post('/create-intervenant.{format}', function(Request $request) use($app){
     
 });
 
-$app->put('/update-intervenant/{id}.{format}', function($id) use($app){
+$app->put('/intervenants/{id}.{format}', function($id) use($app){
 
     if (!$reponse = $app['request']->get('id'))
     {
@@ -96,7 +95,7 @@ $app->put('/update-intervenant/{id}.{format}', function($id) use($app){
     
 });
 
-$app->delete('delete-intervenant/{id}.{format}', function($id) use($app){
+$app->delete('intervenants/{id}.{format}', function($id) use($app){
     
     $sql = Intervenant::find($id);
     
