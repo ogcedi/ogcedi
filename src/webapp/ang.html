@@ -1,9 +1,9 @@
 
 <!doctype html>
-<html lang="fr" ng-app="ogcediApp" ng-controller="PersonneListCtrl">  
+<html lang="fr" ng-app="phonecatApp" ng-controller="PhoneListCtrl">  
 <head>
   <meta charset="utf-8">
-  <title ng-bind-template="OGCEDI {{query?': '+query:''}}">OGCEDI</title>
+  <title ng-bind-template="GPG {{query?': '+query:''}}">Google Phone Gallery</title>
   
     <link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.css">
@@ -32,15 +32,25 @@
   
 </head>
 <body> 
+<!--  <body ng-controller="PhoneListCtrl"> -->
 
-	<div id="wrapper">
+	{{unedonnee}}
+	<p>Nothing here {{'yet' + '!'}}</p>
+	<p> 1 + 2 = {{5}} </p>
 	
-	    <div id="page-wrapper" class="margintop">
-   			<div ng-view></div>
-	    </div>
-	          
-  </div>
-  <!-- /#wrapper -->
+
+  	<table>
+      <tr><th>row number</th><th>Donn&eacute;e</th></tr>
+      <tr ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7]"><td>{{i+1}}</td><td>Indice {{i}}</td></tr>
+    </table>
+    
+    <div ng-view></div> 
+
+◦{{ "lower cap string" | uppercase }}
+◦{{ {foo: "bar", baz: 23} | json }}
+◦{{ 1304375948024 | date }}
+◦{{ 1304375948024 | date:"MM/dd/yyyy @ h:mma" }}
+ <input ng-model="userInput"> Uppercased: {{ userInput | uppercase }}
 
 </body>
 </html>
