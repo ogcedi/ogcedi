@@ -32,6 +32,23 @@ ogcediServices.factory("transformRequestService", function() {
 
 
 /**
+ * Service permettant de realiser un "Select" sur une liste
+ */
+ogcediServices.factory("SelectService", function() {
+	var select = {};
+	select.byId = function (ObjectsList, id) {
+		for(var i = 0; i < ObjectsList.length; ++i) {
+		    if(ObjectsList[i].id == id) {
+		        return ObjectsList[i];
+		    }
+		}
+    }; 
+	return select;
+});
+
+
+
+/**
  * Service REST générique
  */
 ogcediServices.factory('GenericRestServiceFactory', ['$resource', 'transformRequestService', 

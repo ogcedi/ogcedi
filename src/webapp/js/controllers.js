@@ -169,7 +169,7 @@ ogcediControllers.controller('FormationCreationCtrl', ['$scope', 'Formation', '$
 /* *************************************************
  * Controller PROMOTION                            *
  ***************************************************/
-ogcediControllers.controller('PromotionListCtrl', ['$scope', 'Promotion', 'Formation', function($scope, Promotion, Formation) {
+ogcediControllers.controller('PromotionListCtrl', ['$scope', 'Promotion', 'Formation', 'SelectService', function($scope, Promotion, Formation, SelectService) {
 
 	$scope.loadPromotions = function() {
 		$scope.promotions = [];
@@ -189,20 +189,8 @@ ogcediControllers.controller('PromotionListCtrl', ['$scope', 'Promotion', 'Forma
 		}
 	});
 	
-	
-	$scope.getFormation = function(id)
-	{
-		var formation = null;
-		$scope.formations.forEach(
-			function(obj) 
-			{
-				if(obj.id==id)
-				{
-					formation = obj;
-				}
-			}
-		);
-		return formation;
+	$scope.getFormation = function(id) {
+		return SelectService.byId($scope.formations, id)
 	}
 	
 	$scope.limit = 10;
