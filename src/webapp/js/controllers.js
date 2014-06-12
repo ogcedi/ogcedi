@@ -170,7 +170,7 @@ ogcediControllers.controller('FormationCreationCtrl', ['$scope', 'Formation', '$
  * Controller PROMOTION                            *
  ***************************************************/
 ogcediControllers.controller('PromotionListCtrl', ['$scope', 'Promotion', 'Formation', function($scope, Promotion, Formation) {
-			
+
 	$scope.loadPromotions = function() {
 		$scope.promotions = [];
 		$scope.data = Promotion.list();
@@ -182,16 +182,32 @@ ogcediControllers.controller('PromotionListCtrl', ['$scope', 'Promotion', 'Forma
 			var dataCopy =  $scope.data.slice();
 	    	dataCopy.splice($scope.promotions.length, Math.max(0, length-$scope.limit));
 	    	
-	    	dataCopy.forEach(function(personne) {
-	    		$scope.promotions.push(personne);
+	    	dataCopy.forEach(function(promotion) {
+	    		$scope.promotions.push(promotion);
 	    	});
 	    	
 		}
 	});
 	
+	
+	$scope.getFormation = function(id)
+	{
+		var formation = null;
+		$scope.formations.forEach(
+			function(obj) 
+			{
+				if(obj.id==id)
+				{
+					formation = obj;
+				}
+			}
+		);
+		return formation;
+	}
+	
 	$scope.limit = 10;
 	$scope.orderProp = "nom";
-	$scope.loadPromotions();
+	$scope.formations = Formation.list($scope.loadPromotions);
 	
 }]);
 
