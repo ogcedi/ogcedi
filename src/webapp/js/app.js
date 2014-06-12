@@ -3,13 +3,12 @@
 /* App Module */
 
 
-var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ngSanitize', 'ogcediControllers', 'ogcediFilters', 'ogcediServices']);
+var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ngSanitize', 'ogcediControllers', 'ogcediFilters', 'ogcediServices', 'ogcediDirectives']);
 
 ogcediApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
 	when('/home', {
-		templateUrl: 'partials/home.html',
-		controller: 'HomeCtrl'
+		templateUrl: 'partials/home.html'
 	}).
 	when('/personnes', {
 		templateUrl: 'partials/personne-list.html',
@@ -44,54 +43,3 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 	});
 }]);
 
-
-
-// ----------------------------------------------------------------------------------------------------------------------------------- 
-
-
-/*var phonecatApp = angular.module('phonecatApp', ['ngRoute', 'phonecatControllers', 'phonecatFilters', 'phonecatServices']);
-
-phonecatApp.config(['$routeProvider', function($routeProvider){
-	$routeProvider.
-	when('/phones', {
-		templateUrl: 'partials/phone-list.html',
-		controller: 'PhoneListCtrl'
-	}).
-	when('/phones/:phoneId', 
-	{
-		templateUrl: 'partials/phone-detail.html',
-		controller: 'PhoneDetailCtrl'
-	}).
-	otherwise({
-		redirectTo: '/phones'
-	});
-}]);
-
-*/
-
-
-
-/*var phonecatApp = angular.module('phonecatApp', [
-  'ngRoute',
-  'phonecatAnimations',
-  
-  'phonecatControllers',
-  'phonecatFilters',
-  'phonecatServices'
-]);
-
-phonecatApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/phones', {
-        templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
-      }).
-      when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
-      }).
-      otherwise({
-        redirectTo: '/phones'
-      });
-  }]);*/
