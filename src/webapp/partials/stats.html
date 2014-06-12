@@ -1,5 +1,3 @@
-
-
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" style="margin-top: 50px;">
 	<li class="active"><a href="#uv" data-toggle="tab">Statistiques
@@ -11,9 +9,19 @@
 <!-- Tab panes -->
 <div class="tab-content">
 	<div class="tab-pane active" id="uv">
-		<div style="margin-left: 50px;">
-			<div class="btn-group-vertical"
-				style="float: left; margin-top: 60px;">
+		<div style="margin-left: 50px; height: 250px; margin-top: 30px;">
+
+			<p style="font-size: 18px;">Repartition des UVs par promotions :</p>
+
+			<nvd3-pie-chart data="datas" id="exampleId"
+				margin="{left:0,top:30,bottom:0,right:0}" width="200" height="200"
+				x="xFunction()" y="yFunction()" showLabels="false"
+				pieLabelsOutside="false" showValues="false" showLegend=false
+				tooltips="true" tooltipcontent="toolTipContentFunction()"
+				noData="Pas de données"> <svg
+				style="height: 200px; width: 200px; float: left;"></svg> </nvd3-pie-chart>
+
+			<div class="btn-group-vertical" style="margin-top: 30px;">
 				<button ng-click="changePie('A1S')" type="button"
 					class="btn btn-default">A1S</button>
 				<button ng-click="changePie('A2S')" type="button"
@@ -22,21 +30,31 @@
 					class="btn btn-default">A2S2</button>
 			</div>
 
-			<nvd3-pie-chart data="datas" id="exampleId"
-				margin="{left:0,top:30,bottom:0,right:0}" width="400" height="300"
+		</div>
+
+		<div style="margin-left: 50px; height: 300px;">
+
+			<p style="font-size: 18px;">Repartition des cours par UVs de
+				{{currentUV}} :</p>
+
+			<nvd3-pie-chart data="datasModules" id="modulesPie"
+				margin="{left:0,top:30,bottom:0,right:0}" width="200" height="200"
 				x="xFunction()" y="yFunction()" showLabels="false"
 				pieLabelsOutside="false" showValues="false" showLegend=false
 				tooltips="true" tooltipcontent="toolTipContentFunction()"
 				noData="Pas de données"> <svg
-				style="height: 350px; width: 500px;"></svg> </nvd3-pie-chart>
+				style="height: 200px; width: 200px; float: left;"></svg> </nvd3-pie-chart>
+
+			<div class="btn-group-vertical" style="margin-top: 30px;">
+				<button ng-repeat="data in datas" ng-click="changePie2(data.id)"
+					type="button" class="btn btn-default">{{data.key}}</button>
+			</div>
 		</div>
 
-		<div style="margin-left: 50px; margin-top: 60px;">
-			<div class="btn-group">
-				<button ng-click="changeMainChart('UV')" type="button"
-					class="btn btn-default">Répartition UV par nombre d'heures</button>
-			</div>
 
+		<div style="margin-left: 50px;">
+
+			<p style="font-size: 18px;">Repartition de la totalite des UVs :</p>
 			<nvd3-multi-bar-horizontal-chart data="mainDatas" id="mainChart"
 				margin="{left:400,top:30,bottom:100,right:30}" height="400"
 				width="800" tooltips="true" showXAxis="true" showYAxis="true"
