@@ -236,10 +236,8 @@ ogcediControllers.controller('PromotionDetailCtrl', ['$scope', '$routeParams', '
 
 ogcediControllers.controller('PromotionCreationCtrl', ['$scope', 'Promotion', 'Formation', '$location', function($scope, Promotion, Formation, $location){
 
-	$scope.loadFormations = function() {
-		$scope.formations = [];
-		$scope.data = Formation.list();
-	};
+	$scope.formations = [];
+	$scope.formations = Formation.list();
 	
 	$scope.save = function() {
 		Promotion.create($scope.promotion, function(){$scope.go('/promotions');});
