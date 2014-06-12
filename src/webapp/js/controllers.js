@@ -259,45 +259,53 @@ ogcediControllers.controller('PromotionCreationCtrl', ['$scope', 'Promotion', 'F
 /* *************************************************
  * Controller UV                                   *
  ***************************************************/
-ogcediControllers.controller('UvListCtrl', ['$scope', 'Uv', 'Promotion', function($scope, Uv, Promotion) {
+ogcediControllers.controller('UvListCtrl', ['$scope', 'Uv', 'Promotion', 'Formation', 'SelectService', function($scope, Uv, Promotion, Formation, SelectService) {
 
-	$scope.loadUvs = function() {
-		$scope.uvs = [];
-		$scope.data = Uv.list();
-	};
-		
-	$scope.$watch(function(){return $scope.data.length;}, function(length) {	 		 
-		if(length) {
-			$scope.uvsCount = length;
+	$scope.setUvs = function() {
+		if($scope.data) {
 			var dataCopy =  $scope.data.slice();
-	    	dataCopy.splice($scope.uvs.length, Math.max(0, length-$scope.limit));
-	    	
-	    	dataCopy.forEach(function(uv) {
-	    		$scope.uvs.push(uv);
-	    	});
-	    	
+			$scope.uvsCount = dataCopy.length;
+			$scope.uvs = dataCopy.splice($scope.start, $scope.limit);
 		}
-	});
-	
-	
-	$scope.getPromotion = function(id)
-	{
-		var promotion = null;
-		$scope.promotions.forEach(
-			function(obj) 
-			{
-				if(obj.id==id)
-				{
-					promotion = obj;
-				}
-			}
-		);
-		return promotion;
 	}
 	
+	$scope.loadData = function(){
+		
+		function loadUvs() {
+			$scope.data = Uv.list($scope.setUvs);
+		};
+		
+		function loadPromotions() {
+			$scope.promotions = Promotion.list(loadUvs);
+		};
+	
+		$scope.formations = Formation.list(loadPromotions);
+	}
+	
+	$scope.getPromotion = function(uv) {
+		return SelectService.byId($scope.promotions, uv.Promotion_id);
+	}
+	
+	$scope.getFormation = function(uv) {
+		var promotion = $scope.getPromotion(uv);
+		return SelectService.byId($scope.formations, promotion.Formation_id);
+	}
+	
+	$scope.precedents = function(){
+		$scope.start = Math.max(0, parseInt($scope.start) - parseInt($scope.limit));
+		$scope.setUvs();
+	}
+	
+	$scope.suivants = function(){
+		$scope.start = parseInt($scope.start) + parseInt($scope.limit);
+		$scope.setUvs();
+	}
+	
+	$scope.start = 0;
 	$scope.limit = 10;
+	$scope.uvsCount = 0;
 	$scope.orderProp = "nom";
-	$scope.promotions = Promotion.list($scope.loadUvs);
+	$scope.loadData();
 	
 }]);
 
