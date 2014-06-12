@@ -35,15 +35,18 @@ $app->get('/intervenants/{id}.{format}', function($id) use($app){
 
 $app->post('/intervenants.{format}', function(Request $request) use($app){
     
-    if (!$intervenant = $request->get('nom'))
+    if (!$intervenant = $request->get('Personne_id'))
     {   
         $result = array('message' => 'parametres incorrects');
         return new Response(json_encode($result), 400);
     }
 
     $c = new Intervenant();
-    $c->nom = $request->get('nom');
-    $c->prenom = $request->get('prenom');
+    $c->enseignant = $request->get('enseignant');
+    $c->thesard = $request->get('thesard');
+    $c->etablissement = $request->get('etablissement');
+    $c->Departement_id = $request->get('Departement_id');
+    $c->Personne_id = $request->get('Personne_id');
     
     $sql = $c->getInsertSQL();
     
@@ -64,31 +67,44 @@ $app->put('/intervenants/{id}.{format}', function($id) use($app){
     
     $sql = Intervenant::find($id);
     
-    $intervenant_db = $app['db']->fetchAll($sql);
+    $object_d = $app['db']->fetchAll($sql);
     
-    if(empty($intervenant_db))
+    if(empty($object_d))
     {
         return new Response(json_encode(array('message' => 'Intervenant non trouvé')), 404);
     }
     
-    $intervenant = new Intervenant();
-    $intervenant->id = $id;
-    $intervenant->nom = $intervenant_db[0]['nom'];
-    $intervenant->prenom = $intervenant_db[0]['prenom'];
+    $obj = new Intervenant();
+    $obj->id = $id;
+    $obj->enseignant = $object_d[0]['enseignant'];
+    $obj->thesard = $object_d[0]['thesard'];
+    $obj->etablissement = $object_d[0]['etablissement'];
+    $obj->Departement_id = $object_d[0]['Departement_id'];
+    $obj->Personne_id = $object_d[0]['Personne_id'];
 
-    if ($nom = $app['request']->get('nom'))
+    if ($enseignant = $app['request']->get('enseignant'))
     {
-        $intervenant->nom = $nom;
+        $obj->enseignant = $enseignant;
     }
-
-
-    if ($prenom = $app['request']->get('prenom'))
+    if ($thesard = $app['request']->get('thesard'))
     {
-        $intervenant->prenom = $prenom;
+        $obj->thesard = $thesard;
+    }
+    if ($etablissement = $app['request']->get('etablissement'))
+    {
+        $obj->etablissement = $etablissement;
+    }
+    if ($Departement_id = $app['request']->get('Departement_id'))
+    {
+        $obj->Departement_id = $Departement_id;
+    }
+    if ($Personne_id = $app['request']->get('Personne_id'))
+    {
+        $obj->Personne_id = $Personne_id;
     }
  
 
-    $sql = $intervenant->getUpdateSQL();
+    $sql = $obj->getUpdateSQL();
     $app['db']->exec($sql);
     
     return new Response(json_encode(array('message' => "Intervenant ID: {$id} modifiée")), 200);

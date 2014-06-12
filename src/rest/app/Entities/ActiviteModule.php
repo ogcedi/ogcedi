@@ -78,7 +78,8 @@ class ActiviteModule
         $sql = sprintf(
             $sql,
             $this->Module_id,
-            $this->Activite_id
+            $this->Activite_id,
+            $this->id
         );
         
         return $sql;

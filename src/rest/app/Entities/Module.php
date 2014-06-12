@@ -86,7 +86,8 @@ class Module
             $this->nom,
             $this->information,
             $this->UV_id,
-            $this->Departement_id
+            $this->Departement_id,
+            $this->id
         );
         
         return $sql;

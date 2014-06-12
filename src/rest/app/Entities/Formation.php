@@ -17,7 +17,7 @@ class Formation
         $sql = "INSERT INTO formation(
                 nom
             ) 
-            VALUES (%s)";
+            VALUES ('%s')";
         
         $sql = sprintf(
             $sql, 
@@ -36,7 +36,7 @@ class Formation
     {
         $sql = "select * 
                 from formation
-                where id = %d";
+                where id = '%d'";
         $sql = sprintf($sql, $id);
         
         return $sql;
@@ -59,12 +59,16 @@ class Formation
      * @param string $content
      * @return string
      */
-    public static function getUpdateSQL($id, $content)
+    public function getUpdateSQL($id, $content)
     {
         $sql = "update formation
-                set content = %s
+                set nom = '%s'
                 where id = %d";
-        $sql = sprintf($sql, $content, $id);
+        $sql = sprintf(
+            $sql, 
+            $this->nom, 
+            $this->id
+            );
         
         return $sql;
     }

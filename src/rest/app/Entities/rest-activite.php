@@ -42,7 +42,11 @@ $app->post('/activites.{format}', function(Request $request) use($app){
     }
 
     $c = new Activite();
-    $c->nom = $request->get('nom');
+    $c->charge = $request->get('charge');
+    $c->nombre = $request->get('nombre');
+    $c->information = $request->get('information');
+    $c->TypeActivite_id = $request->get('TypeActivite_id');
+    $c->Intervenant_id = $request->get('Intervenant_id');
     
     $sql = $c->getInsertSQL();
     
@@ -72,13 +76,37 @@ $app->put('/activites/{id}.{format}', function($id) use($app){
     
     $objet = new Activite();
     $objet->id = $id;
-    $objet->nom = $object_db[0]['nom'];
+    $objet->charge = $object_db[0]['charge'];
+    $objet->nombre = $object_db[0]['nombre'];
+    $objet->information = $object_db[0]['information'];
+    $objet->TypeActivite_id = $object_db[0]['TypeActivite_id'];
+    $objet->Intervenant_id = $object_db[0]['Intervenant_id'];
 
-    if ($nom = $app['request']->get('nom'))
+
+    if ($charge = $app['request']->get('charge'))
     {
-        $objet->nom = $nom;
+        $objet->charge = $charge;
     }
- 
+
+    if ($nombre = $app['request']->get('nombre'))
+    {
+        $objet->nombre = $nombre;
+    }
+
+    if ($information = $app['request']->get('information'))
+    {
+        $objet->information = $information;
+    }
+
+    if ($TypeActivite_id = $app['request']->get('TypeActivite_id'))
+    {
+        $objet->TypeActivite_id = $TypeActivite_id;
+    }
+
+    if ($Intervenant_id = $app['request']->get('Intervenant_id'))
+    {
+        $objet->Intervenant_id = $Intervenant_id;
+    }
 
     $sql = $objet->getUpdateSQL();
     $app['db']->exec($sql);
