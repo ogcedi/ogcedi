@@ -1,0 +1,35 @@
+<h1 class="page-header">Promotions</h1>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			<!--Sidebar content-->
+			<p> Affichage {{promotions.length + '/' + promotionsCount}},  tri par "{{orderProp}}"</p>
+			<p>Search: <input ng-model="query"></p>
+			<p>Sort by: 
+				<select ng-model="orderProp">
+					<option value="nom">Nom</option>
+					<option value="id">id</option>
+				</select>
+			</p>
+			<p>R&eacute;sultats par page:
+				<select ng-model="limit" ng-change="loadPromotions()">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="50">50</option>
+				</select>
+			</p>
+			<p>
+				<a href="#/promotions/creer/">Nouvelle Promotion</a>
+			</p>
+		</div>
+		<div class="col-md-10">
+			<ul class="">
+				<li ng-repeat="promotion in promotions | filter:query | orderBy:orderProp" class="thumbnail">
+					<a href="#/promotions/{{promotion.id}}">{{promotion.Formation_id + ' - ' + promotion.nom}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
