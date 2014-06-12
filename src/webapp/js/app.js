@@ -3,13 +3,18 @@
 /* App Module */
 
 
-var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ogcediControllers', 'ogcediFilters', 'ogcediServices']);
+var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ngSanitize', 'ogcediControllers', 'ogcediFilters', 'ogcediServices']);
 
 ogcediApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
 	when('/personnes', {
 		templateUrl: 'partials/personne-list.html',
 		controller: 'PersonneListCtrl'
+	}).
+	when('/personnes/creer/', 
+	{
+		templateUrl: 'partials/personne-creation.html',
+		controller: 'PersonneCreationCtrl'
 	}).
 	when('/personnes/:personneId', 
 	{

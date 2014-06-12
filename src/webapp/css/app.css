@@ -39,7 +39,7 @@ img.phone {
   margin-bottom: 2em;
   background-color: white;
   padding: 2em;
-  height: 400px;
+  height: 100px;
   width: 400px;
   display: none;
 }
@@ -99,5 +99,5 @@ h1 {
 }
 
 .margintop{
-	margin-top : 1000px;
+	top : 50px;
 }

@@ -4,11 +4,11 @@
 
 var ogcediControllers = angular.module('ogcediControllers', []);
 
-ogcediControllers.controller('PersonneListCtrl', ['$scope', 'ListPersonne', function($scope, ListPersonne) {
+ogcediControllers.controller('PersonneListCtrl', ['$scope', 'Personne', function($scope, Personne) {
 			
 	$scope.loadPersonnes = function() {
 		$scope.personnes = [];
-		$scope.data = ListPersonne.query();
+		$scope.data = Personne.list();
 	};
 		
 	$scope.$watch(function(){return $scope.data.length;}, function(length) {	 		 
@@ -39,7 +39,7 @@ ogcediControllers.controller('PersonneDetailCtrl', ['$scope', '$routeParams', 'P
 	
 	$scope.load = function()
 	{
-		$scope.personne = Personne.get({personneId: $routeParams.personneId});
+		$scope.personne = Personne.get({id: $routeParams.personneId});
 	}
 	
 	$scope.load();
@@ -48,9 +48,17 @@ ogcediControllers.controller('PersonneDetailCtrl', ['$scope', '$routeParams', 'P
 		$scope.modif = true;
 	}
 	
-	$scope.save = function() {
-		$scope.personne.$save({personneId: $routeParams.personneId});
+	$scope.saved = function() {
+		$scope.modif = false;
 		$scope.load();
+	}
+	
+	$scope.save = function() {
+		$scope.personne.$save({id: $routeParams.personneId}, $scope.saved);
+	}
+	
+	$scope.remove = function() {
+		$scope.personne.$remove({id: $routeParams.personneId}, function(){$scope.go('');});
 		$scope.modif = false;
 	}
 		
@@ -60,7 +68,19 @@ ogcediControllers.controller('PersonneDetailCtrl', ['$scope', '$routeParams', 'P
 		
 }]);
 
+//PersonneCreationCtrl
 
+ogcediControllers.controller('PersonneCreationCtrl', ['$scope', 'Personne', '$location', function($scope, Personne, $location){
+	
+	$scope.save = function() {
+		Personne.create($scope.personne, function(){$scope.go('');});
+	}
+			
+	$scope.go = function(path) {
+		$location.path(path);
+	};
+		
+}]);
 
 
 // ---------------------------------------------------------------------------------------------------------------------------

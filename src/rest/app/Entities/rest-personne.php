@@ -50,7 +50,7 @@ $app->post('/personnes.{format}', function(Request $request) use($app){
 
     $app['db']->exec($sql);
 
-    $result = array('message' => 'personne créée');
+    $result = array('message' => 'personne creee');
     return new Response(json_encode($result), 201);
     
 });

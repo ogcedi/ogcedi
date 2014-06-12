@@ -18,9 +18,12 @@
 			<option value="10">10</option>
 			<option value="50">50</option>
 		</select></p>
+		<p>
+			<a href="#/personnes/creer/">Nouvelle Personne</a>
+		</p>
       </div>
       <div class="col-md-10">
-        <ul class="phones">
+        <ul class="">
           <li ng-repeat="personne in personnes | filter:query | orderBy:orderProp" class="thumbnail">
             <a href="#/personnes/{{personne.id}}">{{personne.prenom + ' ' + personne.nom}}</a>
           </li>
