@@ -3,7 +3,7 @@
 /* App Module */
 
 
-var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ngSanitize', 'ogcediControllers', 'ogcediFilters', 'ogcediServices', 'ogcediDirectives', 'nvd3ChartDirectives']);
+var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ngSanitize', 'ogcediControllers', 'ogcediFilters', 'ogcediServices', 'ogcediDirectives', 'ogcediStatsControllers']);
 
 ogcediApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
@@ -19,14 +19,14 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/personne-creation.html',
 		controller: 'PersonneCreationCtrl'
 	}).
-	when('/statistiques', {
-		templateUrl: 'partials/stats.html',
-		controller: 'StatsController'
-	}).
 	when('/personnes/:personneId', 
 	{
 		templateUrl: 'partials/personne-detail.html',
 		controller: 'PersonneDetailCtrl'
+	}).
+	when('/statistiques', {
+		templateUrl: 'partials/stats.html',
+		controller: 'StatsController'
 	}).
 	when('/formations', {
 		templateUrl: 'partials/formation-list.html',

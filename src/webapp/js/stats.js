@@ -1,6 +1,6 @@
-var app = angular.module("statsApp", [ 'nvd3ChartDirectives' ]);
+var ogcediStatsControllers = angular.module('ogcediStatsControllers', ['nvd3ChartDirectives' ]);
 
-function ExampleCtrl($scope) {
+ogcediStatsControllers.controller('StatsController', ['$scope', function($scope) {
 
 	$scope.mainDatas = [
 	                    {
@@ -139,4 +139,4 @@ function ExampleCtrl($scope) {
 		if (ens === "ens2")
 			$scope.datasBar = $scope.enseignant2;
 	};
-}
+}]);
