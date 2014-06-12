@@ -7,6 +7,10 @@ var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ngSanitize', 'ogcediCon
 
 ogcediApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
+	when('/home', {
+		templateUrl: 'partials/home.html',
+		controller: 'HomeCtrl'
+	}).
 	when('/personnes', {
 		templateUrl: 'partials/personne-list.html',
 		controller: 'PersonneListCtrl'

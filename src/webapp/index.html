@@ -1,11 +1,10 @@
-
 <!doctype html>
 <html lang="fr" ng-app="ogcediApp" ng-controller="PersonneListCtrl">  
 <head>
   <meta charset="utf-8">
   <title ng-bind-template="OGCEDI {{query?': '+query:''}}">OGCEDI</title>
-  
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="css/plugins/morris/morris-0.4.3.min.css">
 	<link rel="stylesheet" href="css/plugins/timeline/timeline.css">
@@ -71,23 +70,15 @@
         <div class="sidebar-collapse">
           <ul class="nav" id="side-menu">
             <li class="sidebar-search">
-              <div class="input-group custom-search-form">
-                <input type="text" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </span>
-              </div>
-              <!-- /input-group -->
+            	<span class="">Menu</span>
             </li>
             <li>
-              <a href="index.html"><i class="fa fa-arrow-right"></i> Dashboard</a>
+              <a href="#/home"><i class="fa fa-arrow-right"></i> Accueil</a>
             </li>
             <li>
-              <a href="tables.html"><i class="fa fa-arrow-right"></i> Personnes</a>
+              <a href="#/personnes"><i class="fa fa-arrow-right"></i> Personnes</a>
             </li>
-            <li>
+            <li>	
               <a href="forms.html"><i class="fa fa-arrow-right"></i> Forms</a>
             </li>
           </ul>

@@ -1,11 +1,28 @@
-<button ng-click="go('');">Retour</button>
+<h1 class="page-header">Ajouter une personne</h1>
 
-<span>Nouvelle personne</span>
 
-<div>
-	<button ng-click="save();">==> Enregistrer</button><br/>
-	Nom:<input ng-model="personne.nom"><br/>
-	Prenom:<input ng-model="personne.prenom"/>
+<form class="form-horizontal" role="form">
+
+	<div class="form-group">
+		<label for="nom" class="col-sm-2 control-label">Nom :</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" ng-model="personne.nom"><br/>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="prenom" class="col-sm-2 control-label">Prénom :</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" ng-model="personne.prenom"><br/>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="button" class="btn btn-default" ng-click="go('');">Retour</button>
+			<button type="button" class="btn btn-primary" ng-click="save();">Ajouter</button><br/>
+		</div>
+	</div>
 </div>
 
 
