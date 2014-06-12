@@ -255,6 +255,108 @@ ogcediControllers.controller('PromotionCreationCtrl', ['$scope', 'Promotion', 'F
 }]);
 
 
+
+/* *************************************************
+ * Controller UV                                   *
+ ***************************************************/
+ogcediControllers.controller('UvListCtrl', ['$scope', 'Uv', 'Promotion', function($scope, Uv, Promotion) {
+
+	$scope.loadUvs = function() {
+		$scope.uvs = [];
+		$scope.data = Uv.list();
+	};
+		
+	$scope.$watch(function(){return $scope.data.length;}, function(length) {	 		 
+		if(length) {
+			$scope.uvsCount = length;
+			var dataCopy =  $scope.data.slice();
+	    	dataCopy.splice($scope.uvs.length, Math.max(0, length-$scope.limit));
+	    	
+	    	dataCopy.forEach(function(uv) {
+	    		$scope.uvs.push(uv);
+	    	});
+	    	
+		}
+	});
+	
+	
+	$scope.getPromotion = function(id)
+	{
+		var promotion = null;
+		$scope.promotions.forEach(
+			function(obj) 
+			{
+				if(obj.id==id)
+				{
+					promotion = obj;
+				}
+			}
+		);
+		return promotion;
+	}
+	
+	$scope.limit = 10;
+	$scope.orderProp = "nom";
+	$scope.promotions = Promotion.list($scope.loadUvs);
+	
+}]);
+
+
+ogcediControllers.controller('UvDetailCtrl', ['$scope', '$routeParams', 'Uv', '$location', function($scope, $routeParams, Uv, $location){
+	
+	$scope.personneId = $routeParams.uvId;
+	
+	$scope.modif=false;
+	
+	$scope.load = function()
+	{
+		$scope.uv = Uv.get({id: $routeParams.uvId});
+	}
+	
+	$scope.load();
+	
+	$scope.edit = function () {
+		$scope.modif = true;
+	}
+	
+	$scope.saved = function() {
+		$scope.modif = false;
+		$scope.load();
+	}
+	
+	$scope.save = function() {
+		$scope.uv.$save({id: $routeParams.uvId}, $scope.saved);
+	}
+	
+	$scope.remove = function() {
+		$scope.uv.$remove({id: $routeParams.uvId}, function(){$scope.go('');});
+		$scope.modif = false;
+	}
+		
+	$scope.go = function(path) {
+		$location.path(path);
+	};
+		
+}]);
+
+//UvCreationCtrl
+
+ogcediControllers.controller('UvCreationCtrl', ['$scope', 'Uv', 'Promotion', '$location', function($scope, Uv, Promotion, $location){
+
+	$scope.promotions = [];
+	$scope.promotions = Promotion.list();
+	
+	$scope.save = function() {
+		Uv.create($scope.uv, function(){$scope.go('/uvs');});
+	}
+			
+	$scope.go = function(path) {
+		$location.path(path);
+	};
+		
+}]);
+
+
 // ---------------------------------------------------------------------------------------------------------------------------
 
 
