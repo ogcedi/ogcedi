@@ -12,9 +12,12 @@
 
 	<div class="form-group">
 		
-		<li ng-repeat="formation in formations | filter:query | orderBy:orderProp" class="thumbnail">
-					<a href="#/formations/{{formation.id}}">{{formation.Formation_id + ' - ' + formation.nom}}</a>
-				</li>
+		<label for="nom" class="col-sm-2 control-label">Formation :</label>
+		<div class="col-sm-10">
+		<select class="form-control" ng-model="promotion.Formation_id">
+			<option ng-repeat="formation in formations | orderBy:orderProp" value="{{formation.id}}">{{formation.nom}}</option>
+		</select>
+		</div>
 
 	</div>
 

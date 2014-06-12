@@ -27,7 +27,7 @@
 		<div class="col-md-10">
 			<ul class="">
 				<li ng-repeat="promotion in promotions | filter:query | orderBy:orderProp" class="thumbnail">
-					<a href="#/promotions/{{promotion.id}}">{{promotion.Formation_id + ' - ' + promotion.nom}}</a>
+					<a href="#/promotions/{{promotion.id}}">{{promotion.Formation_id.nom + ' - ' + promotion.nom}}</a>
 				</li>
 			</ul>
 		</div>
