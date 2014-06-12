@@ -6,7 +6,9 @@ Personne <span>{{personneId}}</span>
 	<button ng-click="save(); reload();">Sauvegarder</button><br/>
 	Nom:<input ng-model="personne.nom"><br/>
 	Prenom:<input ng-model="personne.prenom"/><br/>
-	<button ng-click="remove();">Supprimer</button>
+	
+	<button ng-Confirm-Click="Voulez-vous vraiment supprimer cette personne ?" ng-Confirm-Click-Action="remove();">Supprimer</button>
+
 </div>
 
 
@@ -14,20 +16,4 @@ Personne <span>{{personneId}}</span>
 	<button ng-click="edit();">Modifier</button><br/>
 	<h1>{{personne.prenom + ' ' + personne.nom}}</h1>
 </div>
-
-
-
-<!-- <p>{{personne.info}}</p>
- 
-<ul class="specs">
-  <li>
-    <span>D&eacute;tails</span>
-    <dl>
-      <dt>Personne gentille</dt>
-      <dd>{{personne.gentil | checkmark}}</dd>
-    </dl>
-  </li>
-</ul>
- -->
-
 
