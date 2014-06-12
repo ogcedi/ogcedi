@@ -1,0 +1,35 @@
+<h1 class="page-header">UVs</h1>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			<!--Sidebar content-->
+			<p> Affichage {{uvs.length + '/' + uvsCount}},  tri par "{{orderProp}}"</p>
+			<p>Search: <input ng-model="query"></p>
+			<p>Sort by: 
+				<select ng-model="orderProp">
+					<option value="nom">Nom</option>
+					<option value="id">id</option>
+				</select>
+			</p>
+			<p>R&eacute;sultats par page:
+				<select ng-model="limit" ng-change="loadUv()">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="50">50</option>
+				</select>
+			</p>
+			<p>
+				<a href="#/uvs/creer/">Nouvelle Uv</a>
+			</p>
+		</div>
+		<div class="col-md-10">
+			<ul class="">
+				<li ng-repeat="uv in uvs | filter:query | orderBy:orderProp" class="thumbnail">
+					<a href="#/uvs/{{uv.id}}">{{getPromotion(uv.Promotion_id).nom + ' - ' + uv.nom}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

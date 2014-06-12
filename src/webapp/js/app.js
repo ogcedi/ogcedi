@@ -56,6 +56,20 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/promotion-detail.html',
 		controller: 'PromotionDetailCtrl'
 	}).
+	when('/uvs', {
+		templateUrl: 'partials/uv-list.html',
+		controller: 'UvListCtrl'
+	}).
+	when('/uvs/creer/', 
+	{
+		templateUrl: 'partials/uv-creation.html',
+		controller: 'UvCreationCtrl'
+	}).
+	when('/uvs/:uvId', 
+	{
+		templateUrl: 'partials/uv-detail.html',
+		controller: 'UvDetailCtrl'
+	}).
 	otherwise({
 		redirectTo: '/home'
 	});
