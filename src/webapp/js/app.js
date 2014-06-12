@@ -8,8 +8,7 @@ var ogcediApp = angular.module('ogcediApp', ['ngRoute', 'ngSanitize', 'ogcediCon
 ogcediApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
 	when('/home', {
-		templateUrl: 'partials/home.html',
-		controller: 'HomeCtrl'
+		templateUrl: 'partials/home.html'
 	}).
 	when('/personnes', {
 		templateUrl: 'partials/personne-list.html',
@@ -38,6 +37,20 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 	{
 		templateUrl: 'partials/formation-detail.html',
 		controller: 'FormationDetailCtrl'
+	}).
+	when('/promotions', {
+		templateUrl: 'partials/promotion-list.html',
+		controller: 'PromotionListCtrl'
+	}).
+	when('/promotions/creer/', 
+	{
+		templateUrl: 'partials/promotion-creation.html',
+		controller: 'PromotionCreationCtrl'
+	}).
+	when('/promotions/:promotionId', 
+	{
+		templateUrl: 'partials/promotion-detail.html',
+		controller: 'PromotionDetailCtrl'
 	}).
 	otherwise({
 		redirectTo: '/home'

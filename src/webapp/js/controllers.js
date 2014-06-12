@@ -165,6 +165,93 @@ ogcediControllers.controller('FormationCreationCtrl', ['$scope', 'Formation', '$
 }]);
 
 
+/* *************************************************
+ * Controller PROMOTION                            *
+ ***************************************************/
+ogcediControllers.controller('PromotionListCtrl', ['$scope', 'Promotion', 'Formation', function($scope, Promotion, Formation) {
+			
+	$scope.loadPromotions = function() {
+		$scope.promotions = [];
+		$scope.data = Promotion.list();
+	};
+		
+	$scope.$watch(function(){return $scope.data.length;}, function(length) {	 		 
+		if(length) {
+			$scope.promotionsCount = length;
+			var dataCopy =  $scope.data.slice();
+	    	dataCopy.splice($scope.promotions.length, Math.max(0, length-$scope.limit));
+	    	
+	    	dataCopy.forEach(function(personne) {
+	    		$scope.promotions.push(personne);
+	    	});
+	    	
+		}
+	});
+	
+	$scope.limit = 10;
+	$scope.orderProp = "nom";
+	$scope.loadPromotions();
+	
+}]);
+
+
+ogcediControllers.controller('PromotionDetailCtrl', ['$scope', '$routeParams', 'Promotion', '$location', function($scope, $routeParams, Promotion, $location){
+	
+	$scope.personneId = $routeParams.promotionId;
+	
+	$scope.modif=false;
+	
+	$scope.load = function()
+	{
+		$scope.promotion = Promotion.get({id: $routeParams.promotionId});
+	}
+	
+	$scope.load();
+	
+	$scope.edit = function () {
+		$scope.modif = true;
+	}
+	
+	$scope.saved = function() {
+		$scope.modif = false;
+		$scope.load();
+	}
+	
+	$scope.save = function() {
+		$scope.promotion.$save({id: $routeParams.promotionId}, $scope.saved);
+	}
+	
+	$scope.remove = function() {
+		$scope.promotion.$remove({id: $routeParams.promotionId}, function(){$scope.go('');});
+		$scope.modif = false;
+	}
+		
+	$scope.go = function(path) {
+		$location.path(path);
+	};
+		
+}]);
+
+//PromotionCreationCtrl
+
+ogcediControllers.controller('PromotionCreationCtrl', ['$scope', 'Promotion', 'Formation', '$location', function($scope, Promotion, Formation, $location){
+
+	$scope.loadFormations = function() {
+		$scope.formations = [];
+		$scope.data = Formation.list();
+	};
+	
+	$scope.save = function() {
+		Promotion.create($scope.promotion, function(){$scope.go('/promotions');});
+	}
+			
+	$scope.go = function(path) {
+		$location.path(path);
+	};
+		
+}]);
+
+
 // ---------------------------------------------------------------------------------------------------------------------------
 
 
