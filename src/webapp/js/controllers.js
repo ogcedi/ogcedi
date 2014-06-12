@@ -83,6 +83,88 @@ ogcediControllers.controller('PersonneCreationCtrl', ['$scope', 'Personne', '$lo
 }]);
 
 
+/* *************************************************
+ * Controller FORMATION                            *
+ ***************************************************/
+ogcediControllers.controller('FormationListCtrl', ['$scope', 'Formation', function($scope, Formation) {
+			
+	$scope.loadFormations = function() {
+		$scope.formations = [];
+		$scope.data = Formation.list();
+	};
+		
+	$scope.$watch(function(){return $scope.data.length;}, function(length) {	 		 
+		if(length) {
+			$scope.formationsCount = length;
+			var dataCopy =  $scope.data.slice();
+	    	dataCopy.splice($scope.formations.length, Math.max(0, length-$scope.limit));
+	    	
+	    	dataCopy.forEach(function(personne) {
+	    		$scope.formations.push(personne);
+	    	});
+	    	
+		}
+	});
+	
+	$scope.limit = 10;
+	$scope.orderProp = "nom";
+	$scope.loadFormations();
+	
+}]);
+
+
+ogcediControllers.controller('FormationDetailCtrl', ['$scope', '$routeParams', 'Formation', '$location', function($scope, $routeParams, Formation, $location){
+	
+	$scope.personneId = $routeParams.formationId;
+	
+	$scope.modif=false;
+	
+	$scope.load = function()
+	{
+		$scope.formation = Formation.get({id: $routeParams.formationId});
+	}
+	
+	$scope.load();
+	
+	$scope.edit = function () {
+		$scope.modif = true;
+	}
+	
+	$scope.saved = function() {
+		$scope.modif = false;
+		$scope.load();
+	}
+	
+	$scope.save = function() {
+		$scope.formation.$save({id: $routeParams.formationId}, $scope.saved);
+	}
+	
+	$scope.remove = function() {
+		$scope.formation.$remove({id: $routeParams.formationId}, function(){$scope.go('');});
+		$scope.modif = false;
+	}
+		
+	$scope.go = function(path) {
+		$location.path(path);
+	};
+		
+}]);
+
+//FormationCreationCtrl
+
+ogcediControllers.controller('FormationCreationCtrl', ['$scope', 'Formation', '$location', function($scope, Formation, $location){
+	
+	$scope.save = function() {
+		Formation.create($scope.formation, function(){$scope.go('/formations');});
+	}
+			
+	$scope.go = function(path) {
+		$location.path(path);
+	};
+		
+}]);
+
+
 // ---------------------------------------------------------------------------------------------------------------------------
 
 

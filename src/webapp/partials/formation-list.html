@@ -1,19 +1,18 @@
-<h1 class="page-header">Personnes</h1>
+<h1 class="page-header">Formations</h1>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2">
 			<!--Sidebar content-->
-			<p> Affichage {{personnes.length + '/' + personnesCount}},  tri par "{{orderProp}}"</p>
+			<p> Affichage {{formations.length + '/' + formationsCount}},  tri par "{{orderProp}}"</p>
 			<p>Search: <input ng-model="query"></p>
 			<p>Sort by: 
 				<select ng-model="orderProp">
 					<option value="nom">Nom</option>
-					<option value="prenom">Pr&eacute;nom</option>
 					<option value="id">id</option>
 				</select>
 			</p>
 			<p>R&eacute;sultats par page:
-				<select ng-model="limit" ng-change="loadPersonnes()">
+				<select ng-model="limit" ng-change="loadFormations()">
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="5">5</option>
@@ -22,13 +21,13 @@
 				</select>
 			</p>
 			<p>
-				<a href="#/personnes/creer/">Nouvelle Personne</a>
+				<a href="#/formations/creer/">Nouvelle Formation</a>
 			</p>
 		</div>
 		<div class="col-md-10">
 			<ul class="">
-				<li ng-repeat="personne in personnes | filter:query | orderBy:orderProp" class="thumbnail">
-					<a href="#/personnes/{{personne.id}}">{{personne.prenom + ' ' + personne.nom}}</a>
+				<li ng-repeat="formation in formations | filter:query | orderBy:orderProp" class="thumbnail">
+					<a href="#/formations/{{formation.id}}">{{formation.nom}}</a>
 				</li>
 			</ul>
 		</div>

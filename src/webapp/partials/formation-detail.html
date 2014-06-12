@@ -1,0 +1,15 @@
+<h1 class="page-header">Formation</h1>
+<button ng-click="go('');">Retour</button>
+
+
+<div ng-if="modif">
+	<button ng-click="save(); reload();">Sauvegarder</button><br/>
+	Nom:<input ng-model="formation.nom"><br/>
+	<button ng-click="remove();">Supprimer</button>
+</div>
+
+
+<div ng-if="!modif">
+	<button ng-click="edit();">Modifier</button><br/>
+	<h1>{{formation.prenom + ' ' + formation.nom}}</h1>
+</div>

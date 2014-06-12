@@ -25,8 +25,22 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/personne-detail.html',
 		controller: 'PersonneDetailCtrl'
 	}).
+	when('/formations', {
+		templateUrl: 'partials/formation-list.html',
+		controller: 'FormationListCtrl'
+	}).
+	when('/formations/creer/', 
+	{
+		templateUrl: 'partials/formation-creation.html',
+		controller: 'FormationCreationCtrl'
+	}).
+	when('/formations/:formationId', 
+	{
+		templateUrl: 'partials/formation-detail.html',
+		controller: 'FormationDetailCtrl'
+	}).
 	otherwise({
-		redirectTo: '/personnes'
+		redirectTo: '/home'
 	});
 }]);
 
@@ -35,7 +49,7 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 // ----------------------------------------------------------------------------------------------------------------------------------- 
 
 
-var phonecatApp = angular.module('phonecatApp', ['ngRoute', 'phonecatControllers', 'phonecatFilters', 'phonecatServices']);
+/*var phonecatApp = angular.module('phonecatApp', ['ngRoute', 'phonecatControllers', 'phonecatFilters', 'phonecatServices']);
 
 phonecatApp.config(['$routeProvider', function($routeProvider){
 	$routeProvider.
@@ -53,8 +67,7 @@ phonecatApp.config(['$routeProvider', function($routeProvider){
 	});
 }]);
 
-
-
+*/
 
 
 

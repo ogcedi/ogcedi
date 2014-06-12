@@ -72,8 +72,8 @@ ogcediServices.factory('Activite', ['GenericRestServiceFactory', function(Generi
 /**
  * Service REST ActiviteModule
  */
-ogcediServices.factory('Activite', ['GenericRestServiceFactory', function(GenericRestServiceFactory){
-	return GenericRestServiceFactory.create("activitesmodules").restService;
+ogcediServices.factory('ActiviteModule', ['GenericRestServiceFactory', function(GenericRestServiceFactory){
+	return GenericRestServiceFactory.create("activitemodules").restService;
 }]);
 
 /**
