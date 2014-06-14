@@ -2,6 +2,10 @@
 
 namespace src\Entities;
 
+/**
+ * Représentation métier d'un Departement de la base de données
+ * Realise toutes les interactions SQL.
+ */
 class Departement 
 {
     

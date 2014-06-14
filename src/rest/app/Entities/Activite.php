@@ -3,7 +3,7 @@
 namespace src\Entities;
 
 /**
- * Représentation métier d'un Intervenant de la base de données
+ * Représentation métier d'une Activite de la base de données
  * Realise toutes les interactions SQL.
  */
 class Activite 

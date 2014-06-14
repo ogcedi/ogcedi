@@ -2,6 +2,10 @@
 
 namespace src\Entities;
 
+/**
+ * Représentation métier d'une Formation de la base de données
+ * Realise toutes les interactions SQL.
+ */
 class Formation 
 {
     
