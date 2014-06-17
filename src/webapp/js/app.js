@@ -19,7 +19,7 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/personne-creation.html',
 		controller: 'PersonneCreationCtrl'
 	}).
-	when('/personnes/:personneId', 
+	when('/personnes/:id', 
 	{
 		templateUrl: 'partials/personne-detail.html',
 		controller: 'PersonneDetailCtrl'
@@ -37,7 +37,7 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/formation-creation.html',
 		controller: 'FormationCreationCtrl'
 	}).
-	when('/formations/:formationId', 
+	when('/formations/:id', 
 	{
 		templateUrl: 'partials/formation-detail.html',
 		controller: 'FormationDetailCtrl'
@@ -51,7 +51,7 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/promotion-creation.html',
 		controller: 'PromotionCreationCtrl'
 	}).
-	when('/promotions/:promotionId', 
+	when('/promotions/:id', 
 	{
 		templateUrl: 'partials/promotion-detail.html',
 		controller: 'PromotionDetailCtrl'
@@ -65,7 +65,7 @@ ogcediApp.config(['$routeProvider', function($routeProvider){
 		templateUrl: 'partials/uv-creation.html',
 		controller: 'UvCreationCtrl'
 	}).
-	when('/uvs/:uvId', 
+	when('/uvs/:id', 
 	{
 		templateUrl: 'partials/uv-detail.html',
 		controller: 'UvDetailCtrl'

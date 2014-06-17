@@ -3,17 +3,19 @@
 	<div class="row">
 		<div class="col-md-2">
 			<!--Sidebar content-->
-			<p> Affichage {{personnes.length + '/' + personnesCount}},  tri par "{{orderProp}}"</p>
+			<p>Affichage de {{(data.length?data.length:'0') + '/' + dataCount}} UV(s)<p>
+			<p>{{'UV(s): ' + (data.length?(start+1):'0') + ' - ' + (start+data.length) + ' sur ' + dataCount }} 
+			<p>Tri par "{{orderProp}}"</p>
 			<p>Search: <input ng-model="query"></p>
 			<p>Sort by: 
-				<select ng-model="orderProp">
+				<select ng-init="orderProp='nom'" ng-model="orderProp">
 					<option value="nom">Nom</option>
 					<option value="prenom">Pr&eacute;nom</option>
 					<option value="id">id</option>
 				</select>
 			</p>
 			<p>R&eacute;sultats par page:
-				<select ng-model="limit" ng-change="loadPersonnes()">
+				<select ng-model="limit" ng-change="setData()">
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="5">5</option>
@@ -27,10 +29,15 @@
 		</div>
 		<div class="col-md-10">
 			<ul class="">
-				<li ng-repeat="personne in personnes | filter:query | orderBy:orderProp" class="thumbnail">
+				<li ng-repeat="personne in data | filter:query | orderBy:orderProp" class="thumbnail">
 					<a href="#/personnes/{{personne.id}}">{{personne.prenom + ' ' + personne.nom}}</a>
 				</li>
 			</ul>
+			<div>
+				<a href ng-if="start>0" ng-click="precedents()"> &lt; Pr&eacute;c&eacute;dent(s) </a>
+				<b ng-if="(start>0) && ((start+data.length)<dataCount)"> | </b>
+				<a href ng-if="(start+data.length)<dataCount" ng-click="suivants()"> Suivant(s) &gt;</a>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,24 +1,23 @@
 <h1 class="page-header">UV</h1>
 
 
+<div ng-if="editing">
 
-<div ng-if="modif">
-
-	<button type="button" class="btn btn-default" ng-click="go('/uvs');">Retour</button>
+	<button type="button" class="btn btn-default" ng-click="goBack();">Retour</button>
 
 	<form class="form-horizontal" role="form">
 
 		<div class="form-group">
 			<label for="nom" class="col-sm-2 control-label">Nom :</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" ng-model="uv.nom"><br/>
+				<input type="text" class="form-control" ng-model="data.nom"><br/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="button" class="btn btn-default" ng-Confirm-Click="Voulez-vous vraiment supprimer cette formation ?" ng-Confirm-Click-Action="remove();">Supprimer</button>
-				<button type="button" class="btn btn-primary" ng-click="save(); reload();">Modifier</button><br/>
+				<button type="button" class="btn btn-primary" ng-click="save();">Modifier</button><br/>
 			</div>
 		</div>
 	</form>
@@ -26,9 +25,10 @@
 </div>
 
 
-<div ng-if="!modif">
+<div ng-if="!editing">
 
-	<button type="button" class="btn btn-default" ng-click="go('/uvs');">Retour</button>
+	<button type="button" class="btn btn-default" ng-click="goBack();">Retour</button>
 	<button type="button" class="btn btn-primary" ng-click="edit();">Modifier</button><br/>
-	<h1>{{uv.nom}}</h1>
+	<h1>{{data.nom}}</h1>
+	
 </div>

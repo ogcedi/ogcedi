@@ -4,8 +4,6 @@
 
 var ogcediServices = angular.module('ogcediServices', ['ngResource']);
 
-///rest/web/index.php/list-personne.json
-//get-personne/{id}.{format}
 
 /**
  * "Service" permettant de modifier le contenu JSON d'une requête sortante en contenu text (paramètres)
@@ -32,7 +30,198 @@ ogcediServices.factory("transformRequestService", function() {
 
 
 /**
- * Service permettant de realiser un "Select" sur une liste
+ * Service offrant des options de mise en page et de chargement et modification des données
+ */ 
+ogcediServices.factory("PageService", ['$location', '$routeParams', function($location, $routeParams) {
+	
+	var pageService = {};
+	
+	/**
+	 * Methode 'setGoFunction' : permet de rendre visible la méthode '$location.path(path)' dans le $scope via la methode 'go', ex : $scope.go('/home');
+	 */
+	pageService.setGoFunction = function($scope) {
+		
+		$scope.go = function(path) {
+			$location.path(path);
+		}
+	}
+	
+	/**
+	 * Méthode 'applyListViewService($scope, primaryRestService)' : Permet de rendre visible un ensemble de methode / services dans le "$scope" actuel
+	 * ainsi que d'initialiser des valeurs nécessaire à la mise en page de type "Liste"
+	 */
+	pageService.applyListViewService = function($scope, primaryRestService) {
+				
+		$scope.cacheData=null;
+		$scope.data=null;
+		
+		pageService.setGoFunction($scope);
+		
+		
+		/**
+		 * Méthode 'loadData' : charge les données du type "principal" en cache et appel la methode 'setData' pour n'afficher que le nombre voulu
+		 */
+		pageService.loadData = function ()
+		{
+			$scope.cacheData = primaryRestService.list($scope.setData)
+		}
+				
+
+		/**
+		 * Méthode 'setData' : permet de créer une sous liste de données (affichée sur la page en cours)
+		 */
+		$scope.setData = function() {
+			if($scope.cacheData) {
+				var dataCopy =  $scope.cacheData.slice();
+				$scope.dataCount = dataCopy.length;
+				$scope.data = dataCopy.splice($scope.start, $scope.limit);
+			}
+		}
+		
+		/**
+		 * Méthode 'precedents' : permet de reculer dans la liste affichée
+		 */
+		$scope.precedents = function(){
+			$scope.start = Math.max(0, parseInt($scope.start) - parseInt($scope.limit));
+			$scope.setData();
+		}
+		
+		/**
+		 * Méthode 'suivant' : permet de reculer dans la liste affichée
+		 */
+		$scope.suivants = function(){
+			$scope.start = parseInt($scope.start) + parseInt($scope.limit);
+			$scope.setData();
+		}
+		
+		/**
+		 * Méthode 'reset' : permet d'initialiser l'état des paramètres
+		 */
+		$scope.reset = function() {
+			$scope.start = 0;
+			$scope.limit = 10;
+			$scope.dataCount = 0;			
+		}
+
+		$scope.reset();		
+		
+	};
+	
+	/**
+	 * Méthode 'applyEditViewService($scope, primaryRestService)' : Permet de rendre visible un ensemble de methode / services dans le "$scope" actuel
+	 * ainsi que d'initialiser des valeurs nécessaire à la mise en page de type "Visualisation/Edition"
+	 */
+	pageService.applyEditViewService = function($scope, primaryRestService, mainPage) {
+				
+		pageService.setGoFunction($scope);
+		
+		var id =  $routeParams.id; // Récupère l'identifiant de l'élément (en paramètre dans l'url)
+		$scope.Id = id;
+		$scope.data = null;
+		$scope.editing = false;
+		$scope.restServiceParams = {id: id};
+		
+		/**
+		 * Méthode 'loadData' : charge l'élément désiré
+		 */
+		$scope.loadData = function() {
+			$scope.data = primaryRestService.get($scope.restServiceParams);
+		}
+		
+		/**
+		 * Méthode 'setEditing' : permet de passer en mode edition ou consultation
+		 */
+		$scope.setEditing = function(editing) {
+			$scope.editing = editing;
+		}
+		
+		/**
+		 * Méthode 'edit' : permet de passer la page en mode edition
+		 */
+		$scope.edit = function () {
+			$scope.setEditing(true);
+		}
+		
+		/**
+		 * Méthode 'save' : Enregistre les modification apportées à l'élément
+		 */
+		$scope.save = function() {
+			$scope.data.$save($scope.restServiceParams, $scope.saveCompleted);
+		}
+		
+		/**
+		 * Méthode 'saveCompleted' : Méthode appelée après l'enregistrement des données (CallBack)
+		 */
+		$scope.saveCompleted = function() {
+			$scope.setEditing(false);
+			$scope.loadData();
+		}
+		
+		/**
+		 * Méthode 'remove' : Supprime  l'élément
+		 */
+		$scope.remove = function() {
+			$scope.data.$remove($scope.restServiceParams, $scope.removeCompleted);
+			$scope.setEditing(false);
+		}
+		
+		/**
+		 * Méthode 'removeCompleted' : Méthode appelée après la suppression de l'élément (CallBack)
+		 */
+		$scope.removeCompleted = function() {
+			$scope.goBack();
+		}
+		
+		/**
+		 * Méthode 'goBack' : Méthode permettant de revenir à la page précedente (mainPage)
+		 */
+		$scope.goBack = function () {
+			$scope.go(mainPage);
+		}		
+
+		$scope.loadData();
+		
+	};
+	
+	/**
+	 * Méthode 'applyEditViewService($scope, primaryRestService)' : Permet de rendre visible un ensemble de methode / services dans le "$scope" actuel
+	 * ainsi que d'initialiser des valeurs nécessaire à la mise en page de type "Visualisation/Edition"
+	 */
+	pageService.applyCreationViewService = function($scope, primaryRestService, mainPage) {
+				
+		pageService.setGoFunction($scope);
+		
+		$scope.data = null;
+		 
+		/**
+		 * Méthode 'save' : Enregistre / créer l'élément
+		 */
+		$scope.save =function() {
+			primaryRestService.create($scope.data,  $scope.saveCompleted);
+		}
+		
+		/**
+		 * Méthode 'saveCompleted' : Méthode appelée après la création de l'élément (CallBack)
+		 */
+		$scope.saveCompleted = function() {
+			$scope.goBack();
+		}
+		
+		/**
+		 * Méthode 'goBack' : Méthode permettant de revenir à la page précedente (mainPage)
+		 */
+		$scope.goBack = function () {
+			$scope.go(mainPage);
+		}
+		
+	};
+	
+	return pageService;
+}]);
+
+
+/**
+ * Service permettant de réaliser un "Select" sur une liste
  */
 ogcediServices.factory("SelectService", function() {
 	var select = {};
@@ -50,6 +239,12 @@ ogcediServices.factory("SelectService", function() {
 
 /**
  * Service REST générique
+ * Propose les services suivants :
+ *  - get : obtenir une "ligne" de la table
+ *  - list : obtenir l'ensemble des "lignes" de la table
+ *  - save : enregistrer un objet / une ligne modifiée
+ *  - create : créer une nouvel objet/ une nouvelle ligne dans la table
+ *  - delete : supprimer un élément de la table
  */
 ogcediServices.factory('GenericRestServiceFactory', ['$resource', 'transformRequestService', 
     function($resource, transformRequestService) {
@@ -64,7 +259,6 @@ ogcediServices.factory('GenericRestServiceFactory', ['$resource', 'transformRequ
 			
 			service.restService = $resource('../rest/web/index.php/:table/:id.:format', {table: table, format:'json'}, {
 	   			get: 	{method:'GET'},
-	   			getAll: {method:'GET', isArray:true},
 	   			list: 	{method:'GET', 	params:{id:'' }, isArray:true},
 	   			save: 	{method:'PUT', transformRequest: transformRequestService, headers: headers},
 	   			create: {method:'POST',	params:{id:''}, transformRequest: transformRequestService, headers: headers},
@@ -150,75 +344,3 @@ ogcediServices.factory('Uv', ['GenericRestServiceFactory', function(GenericRestS
 }]);
 
 
-/*
-ogcediServices.factory('GenericRestService', ['$resource', 'transformRequestService', function($resource, transformRequestService) {
-	
-	return $resource('../rest/web/index.php/:table/:id:format', {format:'.json'}, {
-			get: 	{method:'GET'},
-			create: {method:'POST',	params:{id:''}},
-			list: 	{method:'GET', 	params:{id:''}, isArray:true},
-			update: {method:'PUT', transformRequest: transformRequestService},
-			remove: {method:'DELETE'}
-		});
-}]);
-*/
-
-//ogcediServices.factory('ListPersonne', ['$resource',
-//	function($resource){
-//		return $resource('../rest/web/index.php/list-personne.json', {}, {
-//			query: {method:'GET', params:{/*personneId:'personnes'*/}, isArray:true}
-//		});
-//	}
-//]);
-
-
-/*ogcediServices.factory('Personne', ['$resource', 'transformRequestAsFormPost',
-	function($resource, transformRequestAsFormPost){
-		return $resource('../rest/web/index.php/personnes/:personneId:format', {}, {
-			list: {method:'GET', params:{format:'.json'}, isArray:true},
-			get: {method:'GET', params:{format:'.json'}},
-			save: {method:'PUT', params:{format:'.json'},
-			    transformRequest: transformRequestAsFormPost*//*function(obj) {        
-			       var array = [];
-			       for(var name in obj) {
-			        	var value = encodeURIComponent(obj[name]);
-			        	if(name[0]!="$") {
-			        		array.push(encodeURIComponent(name) + "=" + value);
-		        		}
-			        }
-			        return array.join("&");
-			    },
-			    headers: {
-			        'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
-			        'Accept': 'application/json;charset=UTF-8'
-			    }*//*},
-			create: {method:'POST', params:{format:'.json'}},
-			remove: {method:'DELETE', params:{format:'.json'}}
-		});
-	}
-]);*/
-
-
-
-
-
-/*
- ogcediServices.factory('Personne', ['$resource',
-	function($resource){
-		return $resource('../rest/test/personnes/:personneId.json', {}, {
-			query: {method:'GET', params:{personneId:'personnes'}, isArray:true}
-		});
-	}
-]);
-*/
- 
-
-/*var phonecatServices = angular.module('phonecatServices', ['ngResource']);
-
-phonecatServices.factory('Phone', ['$resource',
-	function($resource){
-		return $resource('../rest/test/phones/:phoneId.json', {}, {
-			query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
-		});
-	}
-]);*/
